@@ -1,0 +1,2 @@
+decharge-cli usr/bin
+sink-drivers/tinybms-s516-energusps.py usr/share/decharge/sink-drivers/
