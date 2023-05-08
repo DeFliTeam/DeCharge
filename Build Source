@@ -1,0 +1,3 @@
+sudo apt update
+sudo apt install libelf-dev uuid-dev libserialport-dev libgps-dev libzmq3-dev
+sudo apt install libczmq-dev libavahi-client-dev libmicrohttpd-dev libmongoc-dev
