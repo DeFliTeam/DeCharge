@@ -1,0 +1,14 @@
+[Unit]
+Description=DeCharge broker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+User=root
+Restart=always
+EnvironmentFile=-/etc/default/dechargebroker
+PIDFile=/var/run/decharge.pid
+ExecStart=/usr/bin/dechargebroker $ADDR --servers-port $INCOMING_SERVERS_PORT --clients-port $INCOMING_CLIENTS_PORT --database-uri $DB_URI --daemon --pidfile /var/run/dechargebroker.pid
+[Install]
+WantedBy=multi-user.target
