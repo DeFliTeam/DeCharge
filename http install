@@ -1,0 +1,2 @@
+dechargehttpd    usr/bin
+debian/default/dechargehttpd	etc/default
