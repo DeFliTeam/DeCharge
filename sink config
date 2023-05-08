@@ -1,0 +1,18 @@
+$ decharge-cli show-sink-params
+Sink has the following parameters:
+        capabilties                        PLC_WHILE_CHARGING (0x01)
+        batt-type                          Li-Po (0x00)
+        batt-capacity-mah                  5000
+        batt-min-voltage-mv                18000
+        batt-max-voltage-mv                25200
+        charging-max-current-ma            15000
+        cutoff-min-current-ma              500
+        cutoff-timeout-ms                  5000
+        precharge-current-ma               1000
+        precharge-delay-secs               0
+        precharge-secs                     0
+        total-charge-secs                  7200
+        user-data1                         0x00000000
+        user-data2                         0x00000000
+        user-data3                         0x00000000
+        user-data4                         0x00000000
