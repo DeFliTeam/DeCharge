@@ -1,0 +1,3 @@
+decharge.conf					etc
+dechargeuart-config					usr/bin
+debian/default/dechargeuart-config	etc/default
