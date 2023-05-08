@@ -1,0 +1,23 @@
+$ decharge-cli show-dev-params 
+Source has the following parameters:
+        psu-type                           RSP-750-48 (0x01)
+        detect-mode                        CAPACITY (0x02)
+        psu-fixed-voltage-mv               0
+        psu-fixed-current-ma               0
+        psu-use-fixed-v-i                  false
+        nr-bad-heartbeats                  20
+        ignore-inval-charging-settings     false
+        ignore-low-batt-voltage            true
+        error-indication-timeout-secs      5
+        keep-silence                       false
+        ignore-voltage-on-output           true
+        min-sense-current-ma               50
+        repeat-charge-after-mins           10
+        sense-voltage-calib-point1-mv      15000:15000
+        sense-voltage-calib-point2-mv      50000:50000
+        sense-current-calib-point1-ma       1000:1000
+        sense-current-calib-point2-ma      10000:10000
+        psu-voltage-calib-point1-mv        10000:10000
+        psu-voltage-calib-point2-mv        20000:20000
+        psu-current-calib-point1-ma         1000:1000
+        psu-current-calib-point2-ma         5000:5000
