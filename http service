@@ -1,0 +1,15 @@
+[Unit]
+Description=Decharge HTTP server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+User=root
+Restart=always
+EnvironmentFile=-/etc/default/dechargehttpd
+PIDFile=/var/run/dechargehttpd.pid
+ExecStart=/usr/bin/dechargehttpd $HTTP_ADDR $HTTP_PORT $DECHARGE_ADDR $DECHARGE_PORT --max-requests-rate $MAX_REQUESTS_RATE --daemon --pidfile /var/run/dechargehttpd.pid
+
+[Install]
+WantedBy=multi-user.target
