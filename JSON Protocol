@@ -73,6 +73,20 @@ Returns JSON object, GPS data. The returned structure can be described as the fo
         "time": numeric as string, time of update, unix time in sec with fractional part
         "latitude": numeric as string, latitude in degrees (valid if mode is 2D or 3D)
         "longitude": numeric as string, longitude in degrees (valid if mode is 2D or 3D)
-        "altitude": numeric as string, altitude in meters (valid if mode is 3D)
+        "altitude": numeric as string, altitude in meters (valid if mode is 3D) 
+        
+        decharge-cli monitor --pretty
+
+Timestamp:       2021-11-17 10:29:54.706
+Dev state:       SCANNING
+Voltage:         19.197V
+Current:         0.000A
+Power:           0.000W
+Energy:          0.000Wh
+Charge:          0.000Ah
+Source temp:     26C
+Sink temp:       0C
+Charging:        00h:00m:00s
+
     }
 }
