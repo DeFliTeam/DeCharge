@@ -1,0 +1,51 @@
+The Decharge system can be managed in three ways:
+
+    Remote access: log into the Decharge system and invoke commands locally
+    LAN connection: invoke commands from a user computer on the same network of the Decharge system
+    Cloud connection: invoke commands from a user computer, provided both the user computer and the Decharge system are connected to the internet
+
+Remote access
+
+From a computer connected to the same local network, you must find the TCP/IP address of the Decharge system. 
+By default, the charging station is easily discoverable by the mDNS service: the default domain name is "dechargedevice.local".
+
+    DHCP required
+
+    A DHCP server should be properly setup on your LAN to make the Decharge system discoverable. The charging system won't be discoverable if it is connected directly from a computer Ethernet port straight to the system Ethernet port. This kind of connection requires a DHCP server setup on the computer to which the Decharge system is connected to. The easiest way is to connect both the user computer and the Decharge system to a router device with DHCP support.
+
+For the security reasons, the password authentication is disabled on the system SSH server. The only way to access the system is by using the public key authentication. The private key for your system access can be downloaded here: (link)
+
+The SSH connection to the system can be established as the following:
+
+$ ssh -i id_rsa.dechargedevice root@dechargedevice.local
+
+Where "id_rsa.cechargedevice" is the private key which can be found in the archive linked above.
+
+Once you are logged in, you can start executing the commands described in the Command line tool section. If you are experiencing any problems while connecting, please see the Troubleshooting section.
+LAN Connection
+
+To manage your Decharge system from a computer connected to the same local network, you may simply invoke decharge-cli from your computer, specifying the IP address or domain name of the Decharge system. You will also need the configuration file which you can download from the Decharge system via SSH.
+
+The following command will start monitoring the charging process:
+
+$ decharge-cli monitor --pretty dechargedevice.local
+
+To manage your Decharge system in the cloud, make sure your system is connected to a router with internet access, get the device ID, and then invoke decharge-cli specifying the address of a Decharge broker server and the device ID. You will also need the configuration file which you can download from the Decharge system via SSH.
+
+The following command will list all the charging devices belonging to you:
+
+$ decharge-cli list-devs broker.decharge.network
+Found decharge devices:
+          DEV-ID      DEV-NAME     PORT-NAME
+        3CA9CA18      atterine  /dev/ttyACM0
+        
+ 
+ 
+
+The following command will start monitoring the charging process through the cloud server:
+
+$ decharge-cli monitor --pretty --id 3CA9CA18 broker.decharge.network
+
+
+
+
