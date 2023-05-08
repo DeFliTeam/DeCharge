@@ -1,0 +1,78 @@
+JSON API provides a way to access and control Decharge charging pads through the cloud server (broker server) sending and receiving HTTP requests and responses. This means that a charging pad needs Internet access.
+
+In order to access charging pad devices firstly you need to get a list of them. Each HTTP request should contain a 'user-uuid' parameter, a key which identifies a user. There is a special user UUID dedicated for testing purposes: 00000000-0000-0000-0000-000000000000. This UUID always has a dummy device, which can be accessed and controlled through the API for the testing sake.
+
+Each response is a JSON object containing mandatory 'errno' field, which describes the status of the operation. The 'errno' field takes the 'SUCCESS' value if operation succeeded, or one of the error names specified by POSIX.1 standard.
+
+Each request to the charging device can be timed out after 10 seconds, if there is a connection problem between the device and Decharge broker server and no response is received. In that case any request ends with JSON response with 'errno' field set to 'ETIMEDOUT' error status.
+
+GET /v1/devs-list
+
+Returns JSON list of charging pads devices dedicated to the specified user (customer), where 'device-uuid' is a UUID of the charging device which should be used as a HTTP key-value parameter for all further device requests.
+
+curl 'https://api.decharge.network/v1/devs-list?user-uuid=00000000-0000-0000-0000-000000000000' 
+
+GET /v1/charging-state
+
+Returns JSON object, charging state. The returned structure can have the following fields:
+
+{
+        "errno": string representation of POSIX.1 errors, 'SUCCESS' in case of success
+        "charging-state": {
+                        "state": current state of the charge source. 
+                                
+                        "reason": the reason why charging was stopped.
+                                 
+                        "voltage-mV": output voltage of the charger in mV
+                        "current-mA": output current of the charger in mA
+                        "charging-time-sec": overall charging time in seconds
+                        "state-of-charge-perc": SoC in percentage (if BMS is used)
+                        "until-full-charge-time-sec": time in seconds until full charge 
+                                                      (if BMS is used)
+                        "source-temperature-C": temperature on the charge source (MUX)
+                        "sink-temperature-C": temperature on the sink (PLC mode only)
+                        "energy-mWh": transferred energy in mWh
+                        "charge-mAh": transferred charge in mAh
+                        "tx-bytes": transmitted bytes counter (PLC mode only)
+                        "tx-packets": transmitted packets counter (PLC mode only)
+                        "tx-err-bytes": transmitted error bytes counter (PLC mode only)
+                        "tx-err-packets": transmitted error packets counter (PLC mode only)
+                        "rx-bytes": received bytes counter (PLC mode only)
+                        "rx-packets": received packets counter (PLC mode only)
+                        "rx-err-bytes": received error bytes counter (PLC mode only)
+                        "rx-err-packets": received error packets counter (PLC mode only)
+        }
+}
+
+
+GET /v1/gps-data
+
+Returns JSON object, GPS data. The returned structure can be described as the following:
+
+"gps-data": {
+    "status": string,  GPS status, possible statuses:
+          DECHARGE_GPS_STATUS_NO_FIX,          
+          DECHARGE_GPS_STATUS_FIX
+          DECHARGE_GPS_STATUS_DGPS_FIX
+    "satellites-used": interger, number of satellites used in the solution
+    "dop": {   Dilution of precision factors
+        "xdop": numeric as string,
+        "ydop": numeric as string,
+        "pdop": numeric as string,
+        "hdop": numeric as string,
+        "vdop": numeric as string,
+        "tdop": numeric as string,
+        "gdop": numeric as string,
+    },
+    "fix": {
+        "mode": string, mode of fix, possible modes:
+              DECHARGE_GPS_MODE_NOT_SEEN
+              DECHARGE_GPS_MODE_NO_FIX
+              DECHARGE_GPS_MODE_2D
+              DECHARGE_GPS_MODE_3D
+        "time": numeric as string, time of update, unix time in sec with fractional part
+        "latitude": numeric as string, latitude in degrees (valid if mode is 2D or 3D)
+        "longitude": numeric as string, longitude in degrees (valid if mode is 2D or 3D)
+        "altitude": numeric as string, altitude in meters (valid if mode is 3D)
+    }
+}
