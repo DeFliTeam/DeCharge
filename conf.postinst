@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+	configure)
+		if [ -e /etc/decharge.conf ]; then
+			mv /etc/decharge.conf /etc/decharge.conf
+		else
+			sed -i s/%USRUUID%/`uuidgen`/ /etc/decharge.conf
+			sed -i s/%DEVUUID%/`uuidgen`/ /etc/decharge.conf
+			sed -i s/%DEVNAME%/`gpw 1`/ /etc/decharge.conf
+		fi
+		;;
+	*)
+		;;
+esac
+
+#DEBHELPER#
+
+exit 0
