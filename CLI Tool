@@ -1,0 +1,33 @@
+Usage:
+    decharge-cli list-devs                     [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli monitor [(--pretty | --json)] [--link-stat] [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli show-dev-params [--json]      [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli set-dev-param <key> <value>   [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli set-dev-params <key-value-pairs-string> [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli stop-scan                     [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli resume-scan                   [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli open-droneport                [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli close-droneport               [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli show-droneport-state          [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli show-charging-state [(--no-pretty | --json)] [--link-stat] [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli dev-info                      [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli sink-info                     [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli show-sink-params [--json]     [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli set-sink-param <key> <value>  [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli set-sink-params <key-value-pairs-string> [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli sink-start-charge             [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+    decharge-cli sink-stop-charge              [(--id <dev-id>)] [(--conffile <conff>)] [(<addr> [<port>])]
+
+Options:
+    --id <dev-id> - short ID of the device, is used when 'list-devs' command outputs many devices
+    --conffile    - path to the configuration file, default path is /etc/decharge.conf
+    --pretty      - outputs in pretty human readable format.
+    --no-pretty   - the opposite of 'pretty', when 'pretty' is default.
+    --json        - outputs in json format.
+    --link-stat   - includes data link statistics in the output.
+
+Description:
+    Decharge console client communicates with local and remote devices.
+    Almost each command has non obligatory <addr> and <port> to execute
+    command remotely on a server.  If <addr> and <port> are not specified
+    local device will be used.
