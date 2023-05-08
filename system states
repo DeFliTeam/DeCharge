@@ -1,0 +1,46 @@
+State	Description
+STOPPED	All operations suspended.
+SCANNING	The Source board starts in this state, cyclically scanning the load. When load is detected, the Source board enters the LINK_ESTABLISHED state.
+LINK_ESTABLISHED	If the Source board 'detect-mode' is set to 'plc' (see Source board configuration), the Source board retrieves the Sink board charging configuration over the data link and verifies it.
+
+If the Source board 'detect-mode' is set to 'capacity' this state is intermediate.
+PRECHARGING_DELAYED	This state indicates that charging is started, but the Sink board configuration setting 'precharge_delay_secs' is set to a value other than 0 and thus the pre-charging is delayed to this amount of seconds.
+PRECHARGING	Pre-charging is started. During the pre-charging phase, the current slowly increases from the value of 'precharge_current_mA' to 'charging_max_current_mA' during the 'precharge_secs' number of seconds.
+CHARGING	Charging is in progress.
+CHARGING_FINISHED	The charging process is complete. See the "reason" status for clarification.
+ERR_BAD_LINK	When a load is disconnected, the Source board is switched to this state. This error state is considered a normal ending phase of the charging session.
+ERR_LOW_MUX_VOLTAGE	The Source board detects a low input voltage.
+ERR_VOLTAGE_ON_OUTPUT	The Source board detects a voltage on the output contacts. EXPERIMENTAL
+ERR_SHORT_CIRCUIT	Error state which indicates that short circuit was detected while scan procedure.
+
+There can be several reasons when charging is stopped and system goes to the CHARGING_FINISHED state:
+Reason	Description
+REACHED_CURRENT_CUTOFF	Current cutoff is reached. See the 'cutoff-min-current-ma' sink configuration setting.
+CHARGING_TIME_ELAPSED	Charging time elapsed. See the 'total-charge-secs' sink configuration setting.
+CHARGING_FORCIBLY_STOPPED	Charging was stopped by the 'sink-stop-charge' command. See the command line tool documentation page.
+CRITICAL_TEMP_ON_MUX	Critical temperature is reached on charge source (MUX).
+CRITICAL_TEMP_ON_SINK	Critical temperature is reached on a charge sink (PLC mode only).
+INVAL_CHARGING_SETTINGS	Error state which indicates that the charging configuration retrieved from a Sink board is invalid (PLC mode only).
+LOW_BATT_VOLTAGE	The Source board detects a battery voltage that is below the 'batt_min_voltage_mV' value. See sink configuration settings.
+
+The system state is also displayed by a LED on the Source board. This is used for maintenance purposes only. The following states correspond to LED lights:
+State	Description
+SCANNING	The system is scanning for the load.
+"SCN" LED (green) blinks fast.
+PRECHARGING_DELAYED	The system delays pre-charging/charging, load is constantly detected.
+"CHG" LED (orange) blinks.
+"SCN" LED (green) is solid.
+PRECHARGING
+CHARGING	The system is in the charge loop.
+"CHG" LED (orange) blinks fast.
+CHARGING_FINISHED	The charging process is complete, load is constantly detected.
+"CHG" LED (orange) and "SCN" LED (green) blink fast simultaneously.
+STOPPED	All operations are suspended.
+All three LEDs blink fast simultaneously.
+ERR_LOW_MUX_VOLTAGE
+ERR_VOLTAGE_ON_OUTPUT	Global Source board error state.
+"ERR" LED (red) and "SCN" LED (green) blink slow alternately.
+ERR_LOW_BATT_VOLTAGE
+ERR_INVAL_CHARGING_SETTINGS
+ERR_SHORT_CIRCUIT	Charging error state.
+"ERR" LED (red) blinks fast for the 'error_indication_timeout_secs' number of seconds (see the Source board settings).
